@@ -9,8 +9,10 @@ humidity = nil
 discomfort_index = nil
 
 sp = SerialPort.new('/dev/ttyACM0', 9600)
+sp.readline
+sp.readline
 while !(temperature && pressure && humidity && discomfort_index)
-  sp.readline =~ /Temperature\t(.+)\tPressure\t(\d+)\tHumidity\t(\d+)/
+  sp.readline =~ /Temperature\t(.+?)\tPressure\t(\d+)\tHumidity\t(\d+)/
   next unless $1 && $2 && $3
   temperature = $1.to_f # Celsius
   pressure = $2.to_i / 100 # hPa
