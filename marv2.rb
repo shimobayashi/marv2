@@ -25,7 +25,7 @@ pressures = []
 humidities = []
 discomfort_indices = []
 sp = SerialPort.new('/dev/ttyACM0', 9600, 8, 1, SerialPort::EVEN)
-3.times do |i|
+5.times do |i|
   temperature, pressure, humidity, discomfort_index = fetch(sp)
   temperatures << temperature
   pressures << pressure
