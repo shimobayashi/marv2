@@ -44,21 +44,3 @@ puts "temperature.bed_room\t#{temperature}\t#{epoch}"
 puts "pressure.bed_room\t#{pressure}\t#{epoch}"
 puts "humidity.bed_room\t#{humidity}\t#{epoch}"
 puts "discomfort_index.bed_room\t#{discomfort_index}\t#{epoch}"
-
-#XXX Control air conditioner
-require 'yaml'
-STATE_YAML = '/home/pi/marv2/state.yaml'
-state = File.exist?(STATE_YAML) ? YAML.load_file(STATE_YAML) : {}
-state[:aircon] = state[:aircon] || :off
-if discomfort_index < 79 && state[:aircon] == :on
-  # off
-  `irsend SEND_ONCE aircon off`
-  state[:aircon] = :off
-elsif discomfort_index >= 80 && state[:aircon] == :off
-  # on
-  `irsend SEND_ONCE aircon on_cooler_27`
-  state[:aircon] = :on
-end
-open(STATE_YAML, 'w') do |f|
-  YAML.dump(state, f)
-end
