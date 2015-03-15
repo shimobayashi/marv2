@@ -44,3 +44,29 @@ puts "temperature.bed_room\t#{temperature}\t#{epoch}"
 puts "pressure.bed_room\t#{pressure}\t#{epoch}"
 puts "humidity.bed_room\t#{humidity}\t#{epoch}"
 puts "discomfort_index.bed_room\t#{discomfort_index}\t#{epoch}"
+
+# Send to mackerel
+api_key = ENV['MACKEREL_API_KEY']
+json = [
+  {
+    name: 'temperature',
+    time: epoch,
+    value: temperature,
+  },
+  {
+    name: 'pressure',
+    time: epoch,
+    value: pressure,
+  },
+  {
+    name: 'humidity',
+    time: epoch,
+    value: humidity,
+  },
+  {
+    name: 'discomfort_index',
+    time: epoch,
+    value: discomfort_index,
+  },
+].to_json
+p `curl https://mackerel.io/api/v0/services/My-Room/tsdb -H 'X-Api-Key: #{api_key}' -H 'Content-Type: application/json' -X POST -d '#{json}'`
