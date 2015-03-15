@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'serialport'
+require 'json'
 
 def fetch(sp)
   temperature = nil
