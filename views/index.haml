@@ -1,0 +1,14 @@
+%form{action: '/settings', method: :post}
+  %select{name: :command}
+    %option{value: :nop, selected: @settings.command == 'nop'} 何もしない
+    %option{value: :autopilot, selected: @settings.command == 'autopilot'} 自動運転
+    %option{value: :on, selected: @settings.command == 'on'} ON
+    %option{value: :off, selected: @settings.command == 'off'} OFF
+  %input{type: :text, name: :threshold_low, placeholder: '79.0', value: @settings.threshold_low}
+  %input{type: :text, name: :threshold_high, placeholder: '80.0', value: @settings.threshold_high}
+  %input{type: :submit}
+:plain
+  <iframe src="https://mackerel.io/embed/orgs/shimobayashi/hosts/295o1iVJh27?graph=custom.discomfort_index.*&period=1d" height="200" width="400" frameborder="0"></iframe>
+  <iframe src="https://mackerel.io/embed/orgs/shimobayashi/hosts/295o1iVJh27?graph=custom.temperature.*&period=1d" height="200" width="400" frameborder="0"></iframe>
+  <iframe src="https://mackerel.io/embed/orgs/shimobayashi/hosts/295o1iVJh27?graph=custom.humidity.*&period=1d" height="200" width="400" frameborder="0"></iframe>
+  <iframe src="https://mackerel.io/embed/orgs/shimobayashi/hosts/295o1iVJh27?graph=custom.pressure.*&period=1d" height="200" width="400" frameborder="0"></iframe>
